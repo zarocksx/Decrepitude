@@ -1,0 +1,154 @@
+[gd_scene load_steps=38 format=2]
+
+[ext_resource path="res://scene/ennemy_1/cacEnemy.gd" type="Script" id=1]
+[ext_resource path="res://assets/ennemi/mite/Idle__000.png" type="Texture" id=2]
+[ext_resource path="res://assets/ennemi/mite/Idle__001.png" type="Texture" id=3]
+[ext_resource path="res://assets/ennemi/mite/Idle__002.png" type="Texture" id=4]
+[ext_resource path="res://assets/ennemi/mite/Idle__003.png" type="Texture" id=5]
+[ext_resource path="res://assets/ennemi/mite/Idle__004.png" type="Texture" id=6]
+[ext_resource path="res://assets/ennemi/mite/Idle__005.png" type="Texture" id=7]
+[ext_resource path="res://assets/ennemi/mite/Idle__006.png" type="Texture" id=8]
+[ext_resource path="res://assets/ennemi/mite/Idle__007.png" type="Texture" id=9]
+[ext_resource path="res://assets/ennemi/mite/Idle__008.png" type="Texture" id=10]
+[ext_resource path="res://assets/ennemi/mite/Idle__009.png" type="Texture" id=11]
+[ext_resource path="res://assets/ennemi/mite/Walk__000.png" type="Texture" id=12]
+[ext_resource path="res://assets/ennemi/mite/Walk__001.png" type="Texture" id=13]
+[ext_resource path="res://assets/ennemi/mite/Walk__002.png" type="Texture" id=14]
+[ext_resource path="res://assets/ennemi/mite/Walk__003.png" type="Texture" id=15]
+[ext_resource path="res://assets/ennemi/mite/Walk__004.png" type="Texture" id=16]
+[ext_resource path="res://assets/ennemi/mite/Walk__005.png" type="Texture" id=17]
+[ext_resource path="res://assets/ennemi/mite/Walk__006.png" type="Texture" id=18]
+[ext_resource path="res://assets/ennemi/mite/Walk__007.png" type="Texture" id=19]
+[ext_resource path="res://assets/ennemi/mite/Walk__008.png" type="Texture" id=20]
+[ext_resource path="res://assets/ennemi/mite/Walk__009.png" type="Texture" id=21]
+[ext_resource path="res://assets/ennemi/mite/Dead__000.png" type="Texture" id=22]
+[ext_resource path="res://assets/ennemi/mite/Dead__001.png" type="Texture" id=23]
+[ext_resource path="res://assets/ennemi/mite/Dead__002.png" type="Texture" id=24]
+[ext_resource path="res://assets/ennemi/mite/Dead__003.png" type="Texture" id=25]
+[ext_resource path="res://assets/ennemi/mite/Dead__004.png" type="Texture" id=26]
+[ext_resource path="res://assets/ennemi/mite/Dead__005.png" type="Texture" id=27]
+[ext_resource path="res://assets/ennemi/mite/Dead__006.png" type="Texture" id=28]
+[ext_resource path="res://assets/ennemi/mite/Dead__007.png" type="Texture" id=29]
+[ext_resource path="res://assets/ennemi/mite/Dead__008.png" type="Texture" id=30]
+[ext_resource path="res://assets/ennemi/mite/Dead__009.png" type="Texture" id=31]
+[ext_resource path="res://shaders/mite_shadermaterial.tres" type="Material" id=32]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "idle",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "walk",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ) ],
+"loop": false,
+"name": "dead",
+"speed": 12.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 180.0
+
+[sub_resource type="Animation" id=3]
+resource_name = "damage"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.498179 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.04 ),
+"transitions": PoolRealArray( 23.4254 ),
+"update": 1,
+"values": [ ExtResource( 32 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "faded"
+} ]
+}
+
+[node name="ennemy" type="KinematicBody2D" groups=[
+"enemy",
+]]
+script = ExtResource( 1 )
+posRange = 100
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.287031, 0.287031 )
+frames = SubResource( 1 )
+animation = "walk"
+frame = 1
+playing = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2( 0.950388, 1.05978 )
+polygon = PoolVector2Array( -36.8557, -34.2452, -5.5369, -43.709, 23.399, -39.1298, 42.8031, -25.6973, 54.037, -1.27459, 65.6114, 23.4534, 39.0584, 33.5277, 5.69704, 15.516, -16.7708, 37.4964, -72.6001, 33.833, -56.2598, -4.32743, -48.4301, -26.3079 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 0 )
+
+[node name="detectPlayer" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detectPlayer"]
+scale = Vector2( 1.32483, 1.32483 )
+shape = SubResource( 2 )
+
+[node name="offset" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/damage = SubResource( 3 )
+anims/death = SubResource( 4 )
+anims/fade_out = SubResource( 5 )
+[connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
+[connection signal="body_entered" from="detectPlayer" to="." method="_on_detectPlayer_body_entered"]
+[connection signal="timeout" from="offset" to="." method="_on_offset_timeout"]

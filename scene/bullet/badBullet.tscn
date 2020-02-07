@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scene/bullet/badBullet.gd" type="Script" id=1]
+[ext_resource path="res://assets/bullet/purple_bullet.png" type="Texture" id=2]
+
+[node name="badBullet" type="Area2D"]
+script = ExtResource( 1 )
+speed = 800
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 1.57079
+scale = Vector2( 0.8, 1.2 )
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+rotation = 1.57079
+scale = Vector2( 0.8, 1.2 )
+polygon = PoolVector2Array( 7, 9, -7, 9, -7, -9, 7, -9 )
+[connection signal="body_entered" from="." to="." method="_on_badBullet_body_entered"]

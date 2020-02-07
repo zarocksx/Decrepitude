@@ -1,0 +1,131 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://scene/menu/menu.gd" type="Script" id=1]
+[ext_resource path="res://assets/DarkCinematicBackground.webm" type="VideoStream" id=2]
+[ext_resource path="res://scene/menu/VideoPlayer.gd" type="Script" id=3]
+[ext_resource path="res://assets/menu/title.png" type="Texture" id=4]
+[ext_resource path="res://assets/menu/sub-title.png" type="Texture" id=5]
+[ext_resource path="res://assets/button/jouer sans lueur.png" type="Texture" id=6]
+[ext_resource path="res://assets/button/jouer  lueur.png" type="Texture" id=7]
+[ext_resource path="res://assets/button/option sans lueur.png" type="Texture" id=8]
+[ext_resource path="res://assets/button/options avec lueur.png" type="Texture" id=9]
+[ext_resource path="res://assets/button/quitter sans lueur.png" type="Texture" id=10]
+[ext_resource path="res://assets/button/quitter lueur.png" type="Texture" id=11]
+[ext_resource path="res://scene/transition/transition.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scene/splashScreen/splashScreen.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scene/post-processing/post-proccess.tscn" type="PackedScene" id=14]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Animation" id=2]
+resource_name = "shake"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1.35775e-011, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 20, 0 ), Vector2( -15, 0 ), Vector2( 1, -2 ), Vector2( 0, 0 ) ]
+}
+
+[node name="Control" type="Control"]
+modulate = Color( 1, 1, 1, 0.984314 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 1079.72 ],
+"_edit_vertical_guides_": [ 1921.02 ]
+}
+
+[node name="VideoPlayer" type="VideoPlayer" parent="." groups=[
+"level",
+]]
+margin_right = 1920.0
+margin_bottom = 1080.0
+stream = ExtResource( 2 )
+autoplay = true
+script = ExtResource( 3 )
+
+[node name="decrepitude" type="Sprite" parent="VideoPlayer"]
+position = Vector2( 955.939, 493.071 )
+texture = ExtResource( 4 )
+
+[node name="sub-title" type="Sprite" parent="VideoPlayer"]
+material = SubResource( 1 )
+position = Vector2( 1577.58, 337.661 )
+scale = Vector2( 0.617943, 0.617943 )
+texture = ExtResource( 5 )
+
+[node name="play" type="TextureButton" parent="VideoPlayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -209.5
+margin_top = -98.0901
+margin_right = 209.5
+margin_bottom = 183.91
+rect_scale = Vector2( 0.8, 0.8 )
+size_flags_horizontal = 0
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 7 )
+
+[node name="option" type="TextureButton" parent="VideoPlayer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -217.869
+margin_top = 76.5817
+margin_right = 207.131
+margin_bottom = 358.582
+rect_scale = Vector2( 0.8, 0.8 )
+size_flags_horizontal = 0
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 9 )
+
+[node name="quit" type="TextureButton" parent="VideoPlayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -229.026
+margin_top = 210.272
+margin_right = 226.974
+margin_bottom = 492.272
+rect_scale = Vector2( 0.8, 0.8 )
+size_flags_horizontal = 0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 11 )
+stretch_mode = 5
+
+[node name="transition" parent="." instance=ExtResource( 12 )]
+
+[node name="Node2D" parent="." instance=ExtResource( 13 )]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource( 14 )]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 960, 540 )
+current = true
+
+[node name="camAnim" type="AnimationPlayer" parent="Camera"]
+anims/shake = SubResource( 2 )
+[connection signal="finished" from="VideoPlayer" to="VideoPlayer" method="_on_VideoPlayer_finished"]
+[connection signal="tree_exiting" from="VideoPlayer" to="." method="_on_VideoPlayer_tree_exiting"]
+[connection signal="pressed" from="VideoPlayer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VideoPlayer/quit" to="." method="_on_quit_pressed"]
